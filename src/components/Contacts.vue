@@ -1,0 +1,54 @@
+<template>
+  <div class="contacts">
+    <div v-for="(person, index) in contacts" :key="index" class="contact_line">
+      <div class="person" @click="moreInfo(index)">{{ person.name }}</div>
+      <Delete :deleteObj="{ type: 'person', i1: `${index}` }"></Delete>
+    </div>
+    <AddPerson></AddPerson>
+  </div>
+</template>
+
+<script>
+import Delete from "../components/Delete";
+import AddPerson from "../components/AddPerson";
+
+export default {
+  name: "HelloWorld",
+  components: { Delete, AddPerson },
+  props: {},
+  computed: {
+    contacts() {
+      return this.$store.state.contacts;
+    },
+  },
+  methods: {
+    moreInfo(index) {
+      this.$emit("more-info", index);
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+.person {
+  display: flex;
+  padding: 0.5em 1em;
+  border: 1px solid gray;
+  align-items: center;
+  flex-grow: 1;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.contact_line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5em;
+  padding: 0 1em;
+  >:last-child{
+    cursor: pointer;
+    margin: 0 1em;
+  }
+}
+</style>
