@@ -5,6 +5,7 @@
         <input type="text" v-model="title" />
       </div>
       <div class="buttons">
+        <!-- От типа зависит кнопка и какой метод -->
         <div
           class="cancel"
           @click="cancelChange()"
@@ -49,6 +50,18 @@ export default {
     };
   },
   computed: {
+    // Если  поля которые мы передаем для изменения, создания строки с информацией === null,
+    // то присвоем им заняения:
+    // 1) При измеении мы получаем то что уже есть
+    // 2) При добавлении строки мы получаем пустую строку ''
+
+    // P.S Если мы изначально сделаем
+    // params: {
+    //   title: "",
+    //   value: "",
+    // },
+    // и когда мы сотрем строчку полностью чтобы ввести новое значение
+    // то опять присвоет данные которые мы получаем  this.objTitle или this.objValue
     title: {
       get: function () {
         if (this.params.title === null) {
@@ -82,6 +95,7 @@ export default {
         },
       };
       this.$store.commit("addInfo", infoLine);
+      // Как я понял ТЗ только при отмене изменений нужно спрашивать, а при отмене создания нет
       this.$emit("close-change");
     },
     cancelAdd() {
@@ -115,8 +129,6 @@ export default {
 <style lang="scss" scoped>
 input {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  // border: 1px solid rgb(0, 148, 174);
-  // font-family: Avenir, Helvetica, Arial, sans-serif;
   border: none;
   display: flex;
   align-items: center;
@@ -143,13 +155,13 @@ input {
   .buttons {
     font-size: 0.9rem;
     display: flex;
-    // align-items: center;
     > div {
       height: 25px;
       display: flex;
       align-items: center;
       padding: 0 0.4em;
       border-radius: 5px;
+      cursor: pointer;
     }
     .cancel {
       background-color: rgba(239, 83, 80, 0.3);

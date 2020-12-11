@@ -4,20 +4,20 @@
       <AddSvg></AddSvg>
     </div>
     <div class="input" v-else>
-      <InfoInput
+      <InputInfo
         @close-change="creation = false"
         :indexPerson="indexPerson"
         :infoObj="{ type: 'add', i1: `${indexPerson}` }"
         :objTitle="''"
         :objValue="''"
-      ></InfoInput>
+      ></InputInfo>
     </div>
   </div>
 </template>
 
 <script>
 import AddSvg from "../components/svg/AddSvg";
-import InfoInput from "../components/InfoInput";
+import InputInfo from "../components/InputInfo";
 export default {
   data: () => {
     return {
@@ -30,14 +30,9 @@ export default {
   },
   components: {
     AddSvg,
-    InfoInput,
+    InputInfo,
   },
   methods: {
-    // addPerson() {
-    //   this.$store.commit("addPerson", this.name);
-    //   this.name = "";
-    //   this.creation = false;
-    // },
   },
 };
 </script>

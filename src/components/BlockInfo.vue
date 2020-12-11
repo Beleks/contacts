@@ -6,13 +6,13 @@
         <div class="buttons">
           <div class="change" @click="change = true">Изменить</div>
           <div class="delete_button">
-            <Delete
+            <ButtonDelete
               :deleteObj="{
                 type: 'personInfo',
                 i1: `${indexPerson}`,
                 i2: `${index}`,
               }"
-            ></Delete>
+            ></ButtonDelete>
           </div>
         </div>
       </div>
@@ -20,8 +20,13 @@
         {{ blockInfo.value }}
       </div>
     </div>
+    <!-- Когда нажимаем на 'изменить' отрисовывается infoInput 
+        Передаем title и value и индексы по которым мы сможем изменить данный объект
+        _____
+        Так как компонет ввода у нас один в зависимости от type он будет создовать новый объект или изменять старый
+     -->
     <div class="info_input" v-else>
-      <InfoInput
+      <InputInfo
         @close-change="change = false"
         :objTitle="blockInfo.title"
         :objValue="blockInfo.value"
@@ -30,19 +35,19 @@
           i1: `${indexPerson}`,
           i2: `${index}`,
         }"
-      ></InfoInput>
+      ></InputInfo>
     </div>
   </div>
 </template>
 
 <script>
-import InfoInput from "../components/InfoInput";
-import Delete from "../components/Delete";
+import InputInfo from "../components/InputInfo";
+import ButtonDelete from "../components/ButtonDelete";
 
 export default {
   components: {
-    InfoInput,
-    Delete,
+    InputInfo,
+    ButtonDelete,
   },
   props: {
     // blockInfo: Object,
@@ -71,7 +76,6 @@ export default {
   height: 65px;
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
   .head {
     display: flex;
     justify-content: space-between;
@@ -80,23 +84,23 @@ export default {
     .buttons {
       display: flex;
       align-items: center;
-      .change {
+      > div {
+        cursor: pointer;
         height: 25px;
+        height: 25px;
+        border-radius: 5px;
         display: flex;
         align-items: center;
+      }
+      .change {
         padding: 0 0.5em;
         margin-right: 1em;
         font-size: 0.9rem;
-        border-radius: 5px;
         background-color: rgba(247, 223, 30, 0.3);
         color: rgb(164, 147, 17);
       }
       .delete_button {
-        height: 25px;
         padding: 0 1.2em;
-        display: flex;
-        align-items: center;
-        border-radius: 5px;
         background-color: rgba(239, 83, 80, 0.3);
       }
     }

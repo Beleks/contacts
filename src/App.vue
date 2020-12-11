@@ -1,41 +1,35 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Contacts v-if="page === 'Contacts'" @more-info="toInfo"></Contacts>
-    <Info v-else :indexPerson="index" @come-back="toContacts"></Info>
-    <!-- <component
-      :is="page"
-      @more-info="chosePerson"
-      :indexPerson="index"
-    ></component> -->
+    <PageContacts v-if="page === 'PageContacts'" @more-info="toInfo"></PageContacts>
+    <PageInfo v-else :indexPerson="index" @come-back="toContacts"></PageInfo>
   </div>
 </template>
 
 <script>
-import Contacts from "./components/Contacts.vue";
-import Info from "./components/Info.vue";
+import PageContacts from "./components/PageContacts.vue";
+import PageInfo from "./components/PageInfo.vue";
 
 export default {
   name: "App",
   data: () => {
     return {
-      page: "Info",
+      page: "PageContacts",
       index: 0,
     };
   },
 
   components: {
-    Contacts,
-    Info,
+    PageContacts,
+    PageInfo,
   },
   methods: {
     toInfo: function (index) {
-      this.page = "Info";
+      // Получает индекс и переключается на вторую страницу
+      this.page = "PageInfo";
       this.index = index;
     },
     toContacts() {
-      this.page = "Contacts";
+      this.page = "PageContacts";
     },
   },
 };
@@ -50,5 +44,7 @@ export default {
   // text-align: center;
   color: #2c3e50;
   // margin-top: 60px;
+  margin: auto;
+  max-width: 800px;
 }
 </style>

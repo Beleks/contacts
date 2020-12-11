@@ -3,20 +3,26 @@
     <div v-for="(person, index) in contacts" :key="index" class="contact_line">
       <div class="person" @click="moreInfo(index)">{{ person.name }}</div>
       <div class="delete_button">
-        <Delete :deleteObj="{ type: 'person', i1: `${index}` }"></Delete>
+        <!-- 
+          type отвечает за то, что мы удаляем. 
+          person: передаем только один index для удаления
+          personInfo: передаем индекс контакта и индекс поля которое мы удаляем 
+          -->
+        <ButtonDelete :deleteObj="{ type: 'person', i1: `${index}` }"></ButtonDelete>
       </div>
     </div>
+    <!-- компонет создания контакта -->
     <AddPerson></AddPerson>
   </div>
 </template>
 
 <script>
-import Delete from "../components/Delete";
+import ButtonDelete from "../components/ButtonDelete";
 import AddPerson from "../components/AddPerson";
 
 export default {
   name: "HelloWorld",
-  components: { Delete, AddPerson },
+  components: { ButtonDelete, AddPerson },
   props: {},
   computed: {
     contacts() {
@@ -25,6 +31,7 @@ export default {
   },
   methods: {
     moreInfo(index) {
+      // Передаем индекс контакта для отрисовки другой страницы с информацей о контакте
       this.$emit("more-info", index);
     },
   },
@@ -34,6 +41,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .person {
+  cursor: pointer;
   display: flex;
   height: 40px;
   padding: 0 1em;

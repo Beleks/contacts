@@ -5,16 +5,27 @@
         <LeftSvg></LeftSvg>
         <div>Контакты</div>
       </div>
-      <div class="cancel" @click="returnToThePastState()" :class="{disabled: beforChange === null}">Отменить изменения</div>
+      <div
+        class="cancel"
+        @click="returnToThePastState()"
+        :class="{ disabled: !beforChange }"
+      >
+        Отменить изменения
+      </div>
     </div>
     <div class="person">
       <div class="name">{{ person.name }}</div>
       <div class="info">
-        <div class="title">Дополнителная информация</div>
+        <div class="title">Дополнительная информация</div>
         <div v-for="(blockInfo, index) in info" :key="index">
+          <!-- строка информации "название: значение" 
+               Передаем index контакта и index строки
+               что бы потом по индексам изменять и удалять строки
+          -->
           <BlockInfo :indexPerson="indexPerson" :index="index"></BlockInfo>
         </div>
         <div>
+          <!-- копонент для создания новой строки информации -->
           <AddInfo :indexPerson="indexPerson"></AddInfo>
         </div>
       </div>
@@ -41,23 +52,29 @@ export default {
   },
   computed: {
     person() {
+      // Получаем объект контакта по индексу для отбражения name
       return this.$store.state.contacts[this.indexPerson];
     },
     info() {
-      console.log(this.person.info);
+      // Получаем объект инфо
       return this.person.info;
     },
-    beforChange(){
-      return this.$store.state.beforChange
-    }
+    beforChange() {
+      // Если true то есть изменения которые можно отменить
+      return this.$store.state.beforChange !== null;
+    },
   },
   methods: {
     comeBack() {
+      // Возрашает на первую страницу с контактами
       this.$emit("come-back");
     },
-    returnToThePastState(){
-      this.$store.commit('returnToThePastState')
-    }
+    returnToThePastState() {
+      // Если и
+      if (this.beforChange) {
+        this.$store.commit("returnToThePastState");
+      }
+    },
   },
 };
 </script>
@@ -66,6 +83,9 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  > div {
+    cursor: pointer;
+  }
   .back {
     display: flex;
     // align-items: center;
@@ -81,7 +101,7 @@ export default {
     background-color: rgba(128, 128, 128, 0.1);
     border-radius: 5px;
   }
-  .disabled{
+  .disabled {
     color: rgba(128, 128, 128, 0.5);
   }
 }

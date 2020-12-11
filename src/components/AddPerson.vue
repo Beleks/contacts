@@ -21,19 +21,19 @@ export default {
   data: () => {
     return {
       creation: false,
-      name: ''
+      name: "",
     };
   },
   components: {
     AddSvg,
   },
   methods: {
-    addPerson(){
-      this.$store.commit('addPerson', this.name)
-      this.name = ''
-      this.creation = false
-    }
-  }
+    addPerson() {
+      this.$store.commit("addPerson", this.name);
+      this.name = "";
+      this.creation = false;
+    },
+  },
 };
 </script>
 
@@ -78,8 +78,8 @@ export default {
       // justify-content: space-between;
       font-size: 0.9rem;
       > div {
+        cursor: pointer;
         padding: 0.4em 0.4em;
-
         border-radius: 5px;
       }
       > :first-child {
