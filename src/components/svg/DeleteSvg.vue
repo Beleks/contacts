@@ -6,7 +6,7 @@
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       width="18px"
-      fill="#2c3e50"
+      fill="rgba(239, 83, 80, 1)"
       x="0px"
       y="0px"
       viewBox="0 0 492 492"
